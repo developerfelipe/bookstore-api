@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="books")
@@ -26,16 +27,16 @@ public class Book {
 	@Column(name = "publisher")
 	private String publisher;
 	
-	@Column(name = "lanchYear")
+	@Column(name = "launch_year")
 	private int launchYear;
 	
-	@Column(name = "page")
-	private int pages;
+	@Column(name = "page_count")
+	private int pageCount;
 	
 	@Column(name = "price")
 	private float price;
 	
-	@Column(name="bookFormat")
+	@Column(name="book_format")
 	private String bookFormat;
 	
 	@Column(name="language")
@@ -46,6 +47,9 @@ public class Book {
 	
 	@Column(name="genre")
 	private String genre;
+	
+	@Column(name = "isReserved")
+	private boolean isReserved;
 
 	public Book() {
 		super();
@@ -57,23 +61,22 @@ public class Book {
 		this.author = author;
 	}
 
-	public Book(String isbnNumber, String title, String author, String publisher, int launchYear, int pages,
-			float price, String bookFormat, String language, String weight, String genre) {
+	public Book(String isbnNumber, String title, String author, String publisher, int launchYear, int pageCount,
+			float price, String bookFormat, String language, String weight, String genre ) {
 		super();
 		this.isbnNumber = isbnNumber;
 		this.title = title;
 		this.author = author;
 		this.publisher = publisher;
 		this.launchYear = launchYear;
-		this.pages = pages;
+		this.pageCount = pageCount;
 		this.price = price;
 		this.bookFormat = bookFormat;
 		this.language = language;
 		this.weight = weight;
 		this.genre = genre;
+		this.isReserved = false;
 	}
-
-
 
 	public long getId() {
 		return id;
@@ -123,12 +126,12 @@ public class Book {
 		this.launchYear = launchYear;
 	}
 
-	public int getPages() {
-		return pages;
+	public int getPageCount() {
+		return pageCount;
 	}
 
-	public void setPages(int pages) {
-		this.pages = pages;
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
 	}
 
 	public float getPrice() {
@@ -171,6 +174,14 @@ public class Book {
 		this.genre = genre;
 	}
 
+	public boolean isReserved() {
+		return isReserved;
+	}
+
+	public void setReserved(boolean isReserved) {
+		this.isReserved = isReserved;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -182,7 +193,7 @@ public class Book {
 		result = prime * result + ((isbnNumber == null) ? 0 : isbnNumber.hashCode());
 		result = prime * result + ((language == null) ? 0 : language.hashCode());
 		result = prime * result + launchYear;
-		result = prime * result + pages;
+		result = prime * result + pageCount;
 		result = prime * result + Float.floatToIntBits(price);
 		result = prime * result + ((publisher == null) ? 0 : publisher.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -228,7 +239,7 @@ public class Book {
 			return false;
 		if (launchYear != other.launchYear)
 			return false;
-		if (pages != other.pages)
+		if (pageCount != other.pageCount)
 			return false;
 		if (Float.floatToIntBits(price) != Float.floatToIntBits(other.price))
 			return false;
